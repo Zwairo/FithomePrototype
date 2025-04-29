@@ -31,9 +31,10 @@
         <Button
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_weight="1"
             android:layout_margin="20dp"
-            android:background="@drawable/report_7118261"></Button>
+            android:layout_weight="1"
+            android:background="@drawable/report_7118261"
+            android:onClick="dailysport"></Button>
         <Button
             android:layout_weight="1"
             android:layout_margin="20dp"
