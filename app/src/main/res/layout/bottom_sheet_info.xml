@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/hareketGif"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cherceve" />
+
+    <TextView
+        android:id="@+id/hareketAciklama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Açıklama buraya gelecek"
+        android:paddingTop="12dp"
+        android:textSize="16sp" />
+</LinearLayout>
