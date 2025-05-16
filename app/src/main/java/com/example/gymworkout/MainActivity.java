@@ -28,5 +28,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DailySport.class);
         startActivity(intent);
     }
+    public void kilover(View view){
+        Intent intent = new Intent(this, DataUploaderActivity.class);
+        startActivity(intent);
+    }
 
 }

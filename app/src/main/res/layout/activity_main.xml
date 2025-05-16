@@ -40,6 +40,7 @@
             android:layout_margin="20dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:onClick="kilover"
             android:background="@drawable/weight_9107968"></Button>
     </LinearLayout>
     <LinearLayout

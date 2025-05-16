@@ -1,0 +1,172 @@
+[
+    {
+        "isim": "Squat",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x15",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "4x15",
+                "dinlenme": "15s"
+            }
+        }
+    },
+    {
+        "isim": "Şınav",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x12",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "4x15",
+                "dinlenme": "20s"
+            }
+        }
+    },
+    {
+        "isim": "Mekik",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x15",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "4x20",
+                "dinlenme": "20s"
+            },
+            "zor": {
+                "tekrar": "5x20",
+                "dinlenme": "15s"
+            }
+        }
+    },
+    {
+        "isim": "Plank",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x20sn",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x30sn",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "4x45sn",
+                "dinlenme": "20s"
+            }
+        }
+    },
+    {
+        "isim": "Lunge",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x12",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "4x15",
+                "dinlenme": "20s"
+            }
+        }
+    },
+    {
+        "isim": "Dağcı Tırmanışı (Mountain Climber)",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x20sn",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "4x30sn",
+                "dinlenme": "20s"
+            },
+            "zor": {
+                "tekrar": "5x30sn",
+                "dinlenme": "15s"
+            }
+        }
+    },
+    {
+        "isim": "Jumping Jack",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x20",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "4x25",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "5x30",
+                "dinlenme": "20s"
+            }
+        }
+    },
+    {
+        "isim": "Burpee",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x5",
+                "dinlenme": "45s"
+            },
+            "orta": {
+                "tekrar": "3x7",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "4x10",
+                "dinlenme": "20s"
+            }
+        }
+    },
+    {
+        "isim": "Yana Bacak Açma (Side Leg Raise)",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "4x12",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "4x15",
+                "dinlenme": "20s"
+            }
+        }
+    },
+    {
+        "isim": "Diz Çekme (High Knees)",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x20sn",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "4x30sn",
+                "dinlenme": "30s"
+            },
+            "zor": {
+                "tekrar": "5x40sn",
+                "dinlenme": "15s"
+            }
+        }
+    }
+]

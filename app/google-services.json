@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "819577225912",
+    "project_id": "fithome-83662",
+    "storage_bucket": "fithome-83662.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819577225912:android:d0549de5b1f328ac7daa4d",
+        "android_client_info": {
+          "package_name": "com.example.fithome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFCKqjjv78LlxGvGWHaEw6pckoOt5JTuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819577225912:android:8b50378ba13ff8ff7daa4d",
+        "android_client_info": {
+          "package_name": "com.example.gymworkout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFCKqjjv78LlxGvGWHaEw6pckoOt5JTuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

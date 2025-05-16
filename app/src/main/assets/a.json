@@ -1,0 +1,138 @@
+[
+    {
+        "isim": "Crunches (Mekik)",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x15",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x20",
+                "dinlenme": "60s"
+            }
+        }
+    },
+    {
+        "isim": "High Knees",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x20",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x30",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x50",
+                "dinlenme": "60s"
+            }
+        }
+    },
+    {
+        "isim": "Leg Raises",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x12",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x15",
+                "dinlenme": "60s"
+            }
+        }
+    },
+    {
+        "isim": "Arm Circles",
+        "seviye": {
+            "kolay": {
+                "tekrar": "3x20s",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x30s",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x45s",
+                "dinlenme": "60s"
+            }
+        }
+    },
+    {
+        "isim": "Side Plank (her taraf)",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x15s",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x30s",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x45s",
+                "dinlenme": "60s"
+            }
+        }
+    },
+    {
+        "isim": "Superman Hold",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x20s",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x30s",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x45s",
+                "dinlenme": "60s"
+            }
+        }
+    },
+    {
+        "isim": "Donkey Kicks (her bacak)",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x12",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x15",
+                "dinlenme": "60s"
+            }
+        }
+    },
+    {
+        "isim": "Step-Up (Basamaklı)",
+        "seviye": {
+            "kolay": {
+                "tekrar": "2x10",
+                "dinlenme": "30s"
+            },
+            "orta": {
+                "tekrar": "3x12",
+                "dinlenme": "45s"
+            },
+            "zor": {
+                "tekrar": "4x15",
+                "dinlenme": "60s"
+            }
+        }
+    }
+]
