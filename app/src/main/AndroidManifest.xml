@@ -14,13 +14,10 @@
         android:theme="@style/Theme.GYMWorkout"
         tools:targetApi="31">
         <activity
-            android:name=".DataUploaderActivity"
+            android:name=".Other.DataUploaderActivity"
             android:exported="false" />
         <activity
             android:name=".DailySport"
-            android:exported="false" />
-        <activity
-            android:name=".SorguActivity"
             android:exported="false" />
         <activity
             android:name="com.example.gymworkout.MainActivity"

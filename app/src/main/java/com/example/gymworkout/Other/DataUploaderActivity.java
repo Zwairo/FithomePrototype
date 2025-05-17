@@ -1,4 +1,4 @@
-package com.example.gymworkout;
+package com.example.gymworkout.Other;
 
 import android.content.res.AssetManager;
 import android.os.Bundle;

@@ -11,9 +11,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.gymworkout.Other.DataUploaderActivity;
+import com.example.gymworkout.Other.DifSelecter;
+import com.example.gymworkout.Other.UserActions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.auth.User;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +60,12 @@ public void onCreate(Bundle savedInstanceState) {
     public void dailysport(View view){
         Intent intent = new Intent(this, DailySport.class);
         startActivity(intent);
+
+
+
+
+
+
     }
     public void kilover(View view){
         Intent intent = new Intent(this, DataUploaderActivity.class);
