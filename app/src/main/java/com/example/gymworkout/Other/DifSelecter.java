@@ -6,20 +6,28 @@ import androidx.annotation.NonNull;
 
 import com.example.gymworkout.Models.Movements;
 import com.example.gymworkout.OnHareketListReady;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.Source;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
 public class DifSelecter {
+    FirebaseFirestore db;
+    FirebaseAuth auth;
 
 
     // Level hesaplama: toplam gün sayısına göre level belirle
@@ -48,6 +56,10 @@ public class DifSelecter {
      */
 
     public void getRecommendations(int totalDays, OnHareketListReady listener) {
+
+
+
+
         final int level = getLevel(totalDays);
         int easyCount = 0, mediumCount = 0, hardCount = 0;
 
@@ -60,10 +72,13 @@ public class DifSelecter {
         }
 
         hareketleriCek(easyCount, mediumCount, hardCount, new OnHareketListReady() {
+
             @Override
             public void onHareketListReady(ArrayList<String> hareketler) {
                 listener.onHareketListReady(hareketler); // 🔄 geri gönder
+
             }
+
         });
     }
 
@@ -83,6 +98,8 @@ public class DifSelecter {
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String isim = doc.getString("isim");
                         Map<String, Object> seviyeler = (Map<String, Object>) doc.get("seviye");
+                        String aciklama = doc.getString("aciklama");
+                        String url = doc.getString("url");
 
                         for (Map.Entry<String, Object> entry : seviyeler.entrySet()) {
                             String seviye = entry.getKey(); // kolay, orta, zor
@@ -93,7 +110,7 @@ public class DifSelecter {
                             String tekrar = (String) detay.get("tekrar");
                             String dinlenme = (String) detay.get("dinlenme");
 
-                            String format = isim + "," + seviye + "," + dinlenme + "," + tekrar;
+                            String format = isim + "," + seviye + "," + dinlenme + "," + tekrar + "," + aciklama + "," + url;
 
                             switch (seviye) {
                                 case "kolay":
@@ -141,13 +158,20 @@ public class DifSelecter {
                     }
 
                     callback.onHareketListReady(secilenler);
-                })
-                .addOnFailureListener(e -> Log.e("FIREBASE", "Veri çekilemedi: " + e.getMessage()));
-    }
+                }); // <-- addOnSuccessListener kapanışı
+    }}
 
 
 
-}
+
+
+
+
+
+
+
+
+
 
 
 

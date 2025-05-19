@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class BottomSheetHelper {
 
-    public static void showBottomSheet(Activity activity, String aciklama, int gifResId) {
+    public static void showBottomSheet(Activity activity, String aciklama, String url) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
         View view = LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_info, null);
 
@@ -24,7 +24,7 @@ public class BottomSheetHelper {
 
         Glide.with(activity)
                 .asGif()
-                .load(gifResId)
+                .load(url)
                 .into(hareketGif);
 
         bottomSheetDialog.setContentView(view);

@@ -1,6 +1,7 @@
 package com.example.gymworkout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,7 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.bumptech.glide.Glide;
 import com.example.gymworkout.Other.BottomSheetHelper;
 import com.example.gymworkout.Other.DifSelecter;
-import com.google.firebase.Firebase;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -27,6 +29,11 @@ public class DailySport extends AppCompatActivity {
     TextView name1,name2,name3,name4,name5;
     Button ok1,ok2,ok3,ok4,ok5;
     DifSelecter difSelecter ;
+    View sheetView;
+    FirebaseAuth auth;
+    int toplam;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,9 @@ public class DailySport extends AppCompatActivity {
             return insets;
         });
 
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+         sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_info, null);
+        bottomSheetDialog.setContentView(sheetView);
         db=FirebaseFirestore.getInstance();
         info1=findViewById(R.id.info1);
         info2=findViewById(R.id.info2);
@@ -60,16 +70,39 @@ public class DailySport extends AppCompatActivity {
         ok3=findViewById(R.id.ok3);
         ok4=findViewById(R.id.ok4);
         ok5=findViewById(R.id.ok5);
-        VeriAtama(6);
+
+
+        //Toplam Gün Sayısını çekmek için Interface ile uğraşmak istemedim, direkt oncreat içinde yaptım
+        auth=FirebaseAuth.getInstance();
+        String userId=auth.getCurrentUser().getUid();
+        db.collection("Users").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        if (documentSnapshot.contains("toplamGun")) {
+                            Long toplamGun = documentSnapshot.getLong("toplamGun");
+                            if (toplamGun != null) {
+                                toplam = toplamGun.intValue();
+                                Log.d("TOPLAM_GUN", "Toplam gün: " + toplam);
+                            } else {
+                                Log.d("TOPLAM_GUN", "Toplam gün null döndü");
+                            }
+                        } else {
+                            Log.d("TOPLAM_GUN", "toplamGun alanı yok");
+                        }
+                    } else {
+                        Log.d("TOPLAM_GUN", "Belge bulunamadı");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("TOPLAM_GUN", "Hata oluştu: " + e.getMessage());
+                });
+        VeriAtama(toplam);
 
 
 
 
-        info1.setOnClickListener(v -> {
 
-
-            BottomSheetHelper.showBottomSheet(this, "SQUAD Açıklama", R.drawable.squad);
-        });
 
 
     }
@@ -79,6 +112,11 @@ public class DailySport extends AppCompatActivity {
             @Override
             public void onHareketListReady(ArrayList<String> hareketler) {
                 // burada liste hazır, TextView'lara yazabilirsin
+
+
+
+
+
                 if (!hareketler.isEmpty()) {
                     if (hareketler.size() >= 5) {
                         // 1. Hareket
@@ -88,12 +126,24 @@ public class DailySport extends AppCompatActivity {
                         else if (parcalar1[1].equals("orta")) dificult1.setImageResource(R.drawable.orange);
                         else if (parcalar1[1].equals("zor")) dificult1.setImageResource(R.drawable.red);
 
+                        info1.setOnClickListener(v -> {
+                            BottomSheetHelper.showBottomSheet(DailySport.this, parcalar1[4], parcalar1[5]);
+                        });
+
+
+
+
                         // 2. Hareket
                         String[] parcalar2 = hareketler.get(1).split(",");
                         name2.setText(parcalar2[0] + "\n" + parcalar2[3]);
+
                         if (parcalar2[1].equals("kolay")) dificult2.setImageResource(R.drawable.green);
                         else if (parcalar2[1].equals("orta")) dificult2.setImageResource(R.drawable.orange);
                         else if (parcalar2[1].equals("zor")) dificult2.setImageResource(R.drawable.red);
+                        info2.setOnClickListener(v -> {
+                            BottomSheetHelper.showBottomSheet(DailySport.this, parcalar2[4], parcalar2[5]);
+                        });
+
 
                         // 3. Hareket
                         String[] parcalar3 = hareketler.get(2).split(",");
@@ -101,6 +151,9 @@ public class DailySport extends AppCompatActivity {
                         if (parcalar3[1].equals("kolay")) dificult3.setImageResource(R.drawable.green);
                         else if (parcalar3[1].equals("orta")) dificult3.setImageResource(R.drawable.orange);
                         else if (parcalar3[1].equals("zor")) dificult3.setImageResource(R.drawable.red);
+                        info3.setOnClickListener(v -> {
+                            BottomSheetHelper.showBottomSheet(DailySport.this, parcalar3[4], parcalar3[5]);
+                        });
 
                         // 4. Hareket
                         String[] parcalar4 = hareketler.get(3).split(",");
@@ -108,6 +161,9 @@ public class DailySport extends AppCompatActivity {
                         if (parcalar4[1].equals("kolay")) dificult4.setImageResource(R.drawable.green);
                         else if (parcalar4[1].equals("orta")) dificult4.setImageResource(R.drawable.orange);
                         else if (parcalar4[1].equals("zor")) dificult4.setImageResource(R.drawable.red);
+                        info4.setOnClickListener(v -> {
+                            BottomSheetHelper.showBottomSheet(DailySport.this, parcalar4[4], parcalar4[5]);
+                        });
 
                         // 5. Hareket
                         String[] parcalar5 = hareketler.get(4).split(",");
@@ -115,12 +171,17 @@ public class DailySport extends AppCompatActivity {
                         if (parcalar5[1].equals("kolay")) dificult5.setImageResource(R.drawable.green);
                         else if (parcalar5[1].equals("orta")) dificult5.setImageResource(R.drawable.orange);
                         else if (parcalar5[1].equals("zor")) dificult5.setImageResource(R.drawable.red);
+                        info5.setOnClickListener(v -> {
+                            BottomSheetHelper.showBottomSheet(DailySport.this, parcalar5[4], parcalar5[5]);
+                        });
                     }
 
                 }
             }
         });
+
     }
+
 
 
 
