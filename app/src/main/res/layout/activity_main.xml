@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:background="@drawable/mainmenu_bg"
     android:layout_height="match_parent"
-    tools:context=".com.example.gymworkout.MainActivity" >
+    tools:context="com.example.gymworkout.MainActivity" >
     <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

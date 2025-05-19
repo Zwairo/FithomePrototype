@@ -17,22 +17,56 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="13dp"
-            android:layout_height="13dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_gravity="right"
             android:layout_margin="10dp"
-            android:src="@drawable/mainmenu_bg">
+            android:src="@drawable/baseline_close_24"
+            android:onClick="backtohome"
+            tools:ignore="OnClick">
 
         </ImageView>
 
-        <ImageView
+        <LinearLayout
             android:layout_width="250dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:src="@drawable/mainmenu_bg">
+            android:background="@drawable/cherceve"
+            android:orientation="vertical">
 
-        </ImageView>
+            <TextView
+                android:id="@+id/gunluksure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bugün Geçirilen Süre: 3dk "
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center">
+            </TextView>
+
+            <TextView
+                android:id="@+id/toplamsure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Toplam Süre: 176dk "
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/toplamgunvelevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sporda 5.Günün / Level :5 "
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center">
+            </TextView>
+
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

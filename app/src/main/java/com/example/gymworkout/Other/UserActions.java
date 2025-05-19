@@ -4,6 +4,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -33,6 +34,7 @@ public class UserActions {
                     Map<String, Object> updates = new HashMap<>();
                     updates.put("sonGirisTarihi", FieldValue.serverTimestamp());
 
+
                     if (!bugunZatenGirilmis) {
                         updates.put("toplamGiris", FieldValue.increment(1));
                         updates.put("toplamGun", FieldValue.increment(1));
@@ -44,14 +46,15 @@ public class UserActions {
                     userRef.update(updates);
                 } else {
                     // Yeni kullanıcı: ilk kez giriş
-                    Map<String, Object> userData = new HashMap<>();
-                    userData.put("kayitTarihi", FieldValue.serverTimestamp());
-                    userData.put("sonGirisTarihi", FieldValue.serverTimestamp());
-                    userData.put("toplamGiris", 1);
-                    userData.put("toplamGun", 1);
-                    userData.put("toplamCalismaSuresi", 0);
+                     Map<String, Object> userData = new HashMap<>();
+                                        userData.put("kayitTarihi", FieldValue.serverTimestamp());
+                                        userData.put("sonGirisTarihi", FieldValue.serverTimestamp());
+                                        userData.put("toplamGiris", 1);
+                                        userData.put("toplamGun", 1);
+                                        userData.put("toplamCalismaSuresi", 0);
 
-                    userRef.set(userData);
+                                        userRef.set(userData, SetOptions.merge());
+
 
                     // İlk gün giriş kaydı
                     girisGunleriRef.document(bugun).set(Collections.singletonMap("girisYapildi", true));

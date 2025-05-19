@@ -1,11 +1,14 @@
 package com.example.gymworkout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +20,16 @@ import com.bumptech.glide.Glide;
 import com.example.gymworkout.Other.BottomSheetHelper;
 import com.example.gymworkout.Other.DifSelecter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DailySport extends AppCompatActivity {
     FirebaseFirestore db;
@@ -32,6 +41,10 @@ public class DailySport extends AppCompatActivity {
     View sheetView;
     FirebaseAuth auth;
     int toplam;
+    TextView kronometreText;
+    long baslangicZamani;
+    Handler handler = new Handler();
+    Runnable runnable;
 
 
 
@@ -71,6 +84,62 @@ public class DailySport extends AppCompatActivity {
         ok4=findViewById(R.id.ok4);
         ok5=findViewById(R.id.ok5);
 
+        //Kronometre
+
+        kronometreText = findViewById(R.id.gunluksure);
+        baslangicZamani = System.currentTimeMillis();
+
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                long simdikiZaman = System.currentTimeMillis();
+                long fark = simdikiZaman - baslangicZamani;
+
+                int saniye = (int) (fark / 1000) % 60;
+                int dakika = (int) ((fark / (1000 * 60)) % 60);
+
+                kronometreText.setText("Bugün Geçirilen Süre: "+String.format("%02d:%02d", dakika, saniye));
+
+                handler.postDelayed(this, 1000); // her saniye güncelle
+            }
+        };
+
+        handler.post(runnable);
+
+        //OK butonları için tıklama olayları
+        ok5.setOnClickListener(v -> {
+            long gecenSure = System.currentTimeMillis() - baslangicZamani;
+            handler.removeCallbacks(runnable);
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            DocumentReference docRef = db.collection("Users").document(uid);
+
+            docRef.get().addOnSuccessListener(documentSnapshot -> {
+                long oncekiToplam = 0;
+                if (documentSnapshot.exists()) {
+                    Long mevcut = documentSnapshot.getLong("toplamSureMs");
+                    if (mevcut != null) {
+                        oncekiToplam = mevcut;
+                    }
+                }
+
+                long yeniToplam = oncekiToplam + gecenSure;
+
+                Map<String, Object> veri = new HashMap<>();
+                veri.put("toplamSureMs", yeniToplam);
+                veri.put("sonTarih", new Timestamp(new Date()));
+
+                docRef.set(veri, SetOptions.merge())
+                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Süre güncellendi", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(this, "Hata: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            });
+        });
+
+
+
+
 
         //Toplam Gün Sayısını çekmek için Interface ile uğraşmak istemedim, direkt oncreat içinde yaptım
         auth=FirebaseAuth.getInstance();
@@ -99,12 +168,41 @@ public class DailySport extends AppCompatActivity {
                 });
         VeriAtama(toplam);
 
+        //Toplam Gün Sayısını ve Level bilgisini TextView'lara yazdırmak için
+
+        TextView toplamGunVeLevel = findViewById(R.id.toplamgunvelevel);
+        TextView toplamSure = findViewById(R.id.toplamsure);
+        DifSelecter difSelecter = new DifSelecter();
+
+        db.collection("Users").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Long toplamGun = documentSnapshot.getLong("toplamGun");
+                        Long toplamSureMs = documentSnapshot.getLong("toplamSureMs");
+
+                        int gun = (toplamGun != null) ? toplamGun.intValue() : 0;
+                        int dakika = (toplamSureMs != null) ? (int) (toplamSureMs / (1000 * 60)) : 0;
+                        int level = difSelecter.getLevel(gun);
+
+                        toplamGunVeLevel.setText("Sporda " + gun + ". Günün / Level :" + level);
+                        toplamSure.setText("Toplam Süre: " + dakika + " dk");
+
+                        VeriAtama(gun); // sadece veri geldikten sonra çağır
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Veri alınamadı: " + e.getMessage());
+                });
 
 
 
 
 
-
+    }
+    public  void backtohome(View view){
+        Intent intent=new Intent(DailySport.this,MainActivity.class);
+        startActivity(intent);
     }
     public void VeriAtama(int toplamGun){
         DifSelecter difSelecter = new DifSelecter();
