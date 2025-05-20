@@ -46,6 +46,11 @@ public class DailySport extends AppCompatActivity {
     Handler handler = new Handler();
     Runnable runnable;
 
+    Button[] butonlar;
+    TextView[]nameler;
+    boolean[] tiklandiMi = new boolean[5]; // Her buton için tıklanma durumu
+    int tiklananButonSayisi = 0;
+
 
 
     @Override
@@ -78,13 +83,9 @@ public class DailySport extends AppCompatActivity {
         name3=findViewById(R.id.name3);
         name4=findViewById(R.id.name4);
         name5=findViewById(R.id.name5);
-        ok1=findViewById(R.id.ok1);
-        ok2=findViewById(R.id.ok2);
-        ok3=findViewById(R.id.ok3);
-        ok4=findViewById(R.id.ok4);
-        ok5=findViewById(R.id.ok5);
 
-        //Kronometre
+
+//Kronometre
 
         kronometreText = findViewById(R.id.gunluksure);
         baslangicZamani = System.currentTimeMillis();
@@ -106,36 +107,73 @@ public class DailySport extends AppCompatActivity {
 
         handler.post(runnable);
 
-        //OK butonları için tıklama olayları
-        ok5.setOnClickListener(v -> {
-            long gecenSure = System.currentTimeMillis() - baslangicZamani;
-            handler.removeCallbacks(runnable);
+        nameler=new TextView[]{
+                findViewById(R.id.name1)
+                ,findViewById(R.id.name2)
+                ,findViewById(R.id.name3)
+                ,findViewById(R.id.name4)
+                ,findViewById(R.id.name5)
+        };
 
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        butonlar = new Button[]{
+                findViewById(R.id.ok1),
+                findViewById(R.id.ok2),
+                findViewById(R.id.ok3),
+                findViewById(R.id.ok4),
+                findViewById(R.id.ok5)
+        };
 
-            DocumentReference docRef = db.collection("Users").document(uid);
+        for (int i = 0; i < butonlar.length; i++) {
+            int finalI = i;
+            butonlar[i].setOnClickListener(v -> {
+                if (!tiklandiMi[finalI]) {
+                    tiklandiMi[finalI] = true;
+                    tiklananButonSayisi++;
+                    nameler[finalI].setText("Tamamlandı");
 
-            docRef.get().addOnSuccessListener(documentSnapshot -> {
-                long oncekiToplam = 0;
-                if (documentSnapshot.exists()) {
-                    Long mevcut = documentSnapshot.getLong("toplamSureMs");
-                    if (mevcut != null) {
-                        oncekiToplam = mevcut;
+                    butonlar[finalI].setEnabled(false);
+
+
+
+
+                    if (tiklananButonSayisi == 5) {
+                        //Tüm butonlara tıklandı
+
+
+                        long gecenSure = System.currentTimeMillis() - baslangicZamani;
+                        handler.removeCallbacks(runnable);
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        DocumentReference docRef = db.collection("Users").document(uid);
+
+                        docRef.get().addOnSuccessListener(documentSnapshot -> {
+                            long oncekiToplam = 0;
+                            if (documentSnapshot.exists()) {
+                                Long mevcut = documentSnapshot.getLong("toplamSureMs");
+                                if (mevcut != null) {
+                                    oncekiToplam = mevcut;
+                                }
+                            }
+
+                            long yeniToplam = oncekiToplam + gecenSure;
+
+                            Map<String, Object> veri = new HashMap<>();
+                            veri.put("toplamSureMs", yeniToplam);
+                            veri.put("sonTarih", new Timestamp(new Date()));
+
+                            docRef.set(veri, SetOptions.merge())
+                                    .addOnSuccessListener(aVoid -> Toast.makeText(this, "Süre güncellendi", Toast.LENGTH_SHORT).show())
+                                    .addOnFailureListener(e -> Toast.makeText(this, "Hata: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        });
                     }
                 }
-
-                long yeniToplam = oncekiToplam + gecenSure;
-
-                Map<String, Object> veri = new HashMap<>();
-                veri.put("toplamSureMs", yeniToplam);
-                veri.put("sonTarih", new Timestamp(new Date()));
-
-                docRef.set(veri, SetOptions.merge())
-                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Süre güncellendi", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e -> Toast.makeText(this, "Hata: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             });
-        });
+        }
+
+
+
 
 
 
