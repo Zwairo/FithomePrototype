@@ -435,6 +435,31 @@
         </LinearLayout>
 
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/tebrikKarti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/popup_background">
+
+        <TextView
+            android:id="@+id/tebriklerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEBRİKLER"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+    </LinearLayout>
+</RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

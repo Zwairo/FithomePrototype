@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class DailySport extends AppCompatActivity {
     TextView[]nameler;
     boolean[] tiklandiMi = new boolean[5]; // Her buton için tıklanma durumu
     int tiklananButonSayisi = 0;
+    RelativeLayout tebrikKarti ;
 
 
 
@@ -68,6 +70,7 @@ public class DailySport extends AppCompatActivity {
          sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_info, null);
         bottomSheetDialog.setContentView(sheetView);
         db=FirebaseFirestore.getInstance();
+        tebrikKarti = findViewById(R.id.tebrikKarti);
         info1=findViewById(R.id.info1);
         info2=findViewById(R.id.info2);
         info3=findViewById(R.id.info3);
@@ -142,6 +145,8 @@ public class DailySport extends AppCompatActivity {
 
                         long gecenSure = System.currentTimeMillis() - baslangicZamani;
                         handler.removeCallbacks(runnable);
+
+                        tebrikGoster();
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -238,6 +243,20 @@ public class DailySport extends AppCompatActivity {
 
 
     }
+    public void tebrikGoster() {
+        tebrikKarti.setVisibility(View.VISIBLE);
+
+        // İstersen 3 saniye sonra kendini kapatsın:
+        new Handler().postDelayed(() -> {
+            tebrikKarti.setVisibility(View.GONE);
+            Intent intent=new Intent(DailySport.this,MainActivity.class);
+            startActivity(intent);
+                },
+
+                3000);
+
+    }
+
     public  void backtohome(View view){
         Intent intent=new Intent(DailySport.this,MainActivity.class);
         startActivity(intent);
